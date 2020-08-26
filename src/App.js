@@ -4,8 +4,25 @@ import MyDropZone from "./DropZone";
 import { v4 as uuidv4 } from "uuid";
 
 import "./styles.scss";
-import DropZone from "./DropZone";
 
+import styled from "styled-components";
+
+const Button = styled.button`
+  background: green;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background: rgb(70, 165, 70);
+  }
+`;
 export default function App() {
   const [state, setState] = useState({
     selectedid: 0,
@@ -54,7 +71,7 @@ export default function App() {
       <div className="container">
         <div className="col">
           <h3>Extras Offers</h3>
-          <button onClick={addOffer}>ADD NEW OFFER</button>
+          <Button onClick={addOffer}>ADD NEW OFFER</Button>
           {state.offers.length > 0 && (
             <>
               <form>
@@ -80,7 +97,7 @@ export default function App() {
                     ].fields.description
                   }
                 />
-                <DropZone state={state} setState={setState} />
+                <MyDropZone state={state} setState={setState} />
               </form>
             </>
           )}
@@ -106,10 +123,10 @@ export default function App() {
                 <pre>
                   <code>{el.fields.description}</code>
                 </pre>
-                <img src={el.fields.src} alt="" />
-                <button onClick={handleIndex} data-selectedid={el.id}>
+                {el.fields.src && <img src={el.fields.src} alt="" />}
+                <Button onClick={handleIndex} data-selectedid={el.id}>
                   EDIT
-                </button>
+                </Button>
               </div>
             ))}
           </ReactSortable>
